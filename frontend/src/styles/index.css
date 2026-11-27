@@ -1,0 +1,156 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/bricolage-grotesque";
+@import "leaflet/dist/leaflet.css";
+
+/*
+ * UpLOAD brand tokens. Electric purple leads; orange, sun yellow and mint carry energy and status;
+ * midnight navy is the ink; soft lavender is the canvas. Text colours on white all clear WCAG AA.
+ */
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque Variable", "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+  /* Surfaces */
+  --color-background: #ffffff; /* cards, inputs */
+  --color-canvas: #f6f3ff; /* page */
+  --color-surface: #f0eaff; /* subtle fills, hover */
+  --color-border: #e6dff7;
+
+  /* Ink */
+  --color-navy: #140f3c;
+  --color-ink-2: #3b3560;
+  --color-muted: #6a6488;
+
+  /* Brand */
+  --color-primary: #6d28d9;
+  --color-primary-strong: #5719b8;
+  --color-primary-soft: #ede4ff;
+  --color-orange: #f2690d;
+  --color-orange-ink: #b4470a;
+  --color-orange-soft: #ffeadb;
+  --color-sun: #ffc83d;
+  --color-sun-ink: #835c00;
+  --color-sun-soft: #fff3cc;
+  --color-mint: #14b86e;
+  --color-mint-soft: #dcf7e9;
+  --color-midnight: #0d0a2b;
+
+  /* Status (always paired with an icon + label). All clear 4.5:1 on white, canvas, surface and their soft tints. */
+  --color-success: #0b7a46;
+  --color-warning: #835c00;
+  --color-danger: #c4261b;
+  --color-danger-soft: #fde8e6;
+  /* Fills: white text on primary/midnight/orange-ink; NAVY text on orange, sun and mint fills. */
+
+  /* Charts: validated categorical order (dataviz validator: all checks pass on white) */
+  --color-chart-1: #7c3aed;
+  --color-chart-2: #eb6834;
+  --color-chart-3: #1baf7a;
+  --color-chart-4: #eda100;
+
+  --radius-4xl: 2rem;
+
+  --shadow-soft: 0 1px 2px rgb(20 15 60 / 0.05), 0 6px 20px -4px rgb(20 15 60 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(20 15 60 / 0.06), 0 18px 40px -12px rgb(76 29 149 / 0.28);
+  --shadow-glow: 0 10px 30px -8px rgb(109 40 217 / 0.55);
+  --shadow-nav: 0 -4px 30px -6px rgb(20 15 60 / 0.14);
+
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 1.8s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+
+  @keyframes shimmer {
+    from { background-position: -200% 0; }
+    to { background-position: 200% 0; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.7; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-canvas text-navy font-sans antialiased;
+  }
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+  :focus-visible {
+    outline-color: var(--color-primary);
+  }
+  ::selection {
+    background: var(--color-primary-soft);
+  }
+}
+
+/* Signature gradients. Use sparingly: one hero per screen. */
+@utility bg-brand {
+  background-image: linear-gradient(135deg, #5b1fd1 0%, #7c3aed 42%, #c026d3 78%, #f2690d 118%);
+}
+@utility bg-brand-soft {
+  background-image: radial-gradient(120% 120% at 0% 0%, #ede4ff 0%, transparent 55%),
+    radial-gradient(90% 90% at 100% 0%, #ffeadb 0%, transparent 50%), linear-gradient(#fff, #fff);
+}
+@utility bg-sunrise {
+  background-image: linear-gradient(135deg, #ff8a2b 0%, #f2690d 45%, #e2366d 110%);
+}
+@utility bg-midnight {
+  background-image: radial-gradient(120% 90% at 100% 0%, rgb(124 58 237 / 0.45) 0%, transparent 55%),
+    radial-gradient(80% 80% at 0% 100%, rgb(242 105 13 / 0.25) 0%, transparent 55%), linear-gradient(#140f3c, #0d0a2b);
+}
+@utility bg-mintfresh {
+  background-image: linear-gradient(135deg, #0fa968 0%, #14b86e 50%, #7ad957 120%);
+}
+@utility glass {
+  background-color: rgb(255 255 255 / 0.72);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+}
+@utility glass-dark {
+  background-color: rgb(255 255 255 / 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+@utility skeleton-shimmer {
+  background-image: linear-gradient(90deg, #efe9fc 0%, #f8f5ff 40%, #efe9fc 80%);
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
+}
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Leaflet: match the brand */
+.leaflet-container {
+  font-family: var(--font-sans);
+  background: #efeafc;
+  border-radius: inherit;
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 16px;
+  box-shadow: var(--shadow-lift);
+}
+.leaflet-popup-content {
+  margin: 12px 14px;
+  font-size: 13px;
+  color: var(--color-navy);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

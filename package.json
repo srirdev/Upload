@@ -1,0 +1,12 @@
+{
+  "name": "upload-root",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Convenience scripts. The apps live in frontend/ and backend/.",
+  "scripts": {
+    "postinstall": "npm --prefix frontend install",
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "test": "npm --prefix frontend test"
+  }
+}

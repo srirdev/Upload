@@ -1,0 +1,14 @@
+node_modules/
+dist/
+build/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+*.log
+.DS_Store
+# Python runtimes installed by the Windows install manager into this folder
+Python/
+dev.db
+.local-storage/

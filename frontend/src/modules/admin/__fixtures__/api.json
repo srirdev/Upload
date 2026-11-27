@@ -1,0 +1,1010 @@
+{
+ "_ids": {
+  "order": "9edf4dce-858f-4eda-ae5a-fc3e99871549",
+  "shop": "a05e77ce-2aa7-4349-b548-d165d6caaf71",
+  "rider": "58da9908-49e4-465a-8029-29f39c18e382",
+  "complaint": "9d2eea30-7980-4227-bef8-05624061accd"
+ },
+ "/me": {
+  "mobile": "9000000009",
+  "full_name": null,
+  "email": null
+ },
+ "/ops/summary": {
+  "orders_today": 1,
+  "active_batches": 0,
+  "pending_pickups": 0,
+  "completed_deliveries": 1,
+  "net_margin_today": "-38.29",
+  "net_margin_total": "-38.29",
+  "unassigned_orders": 0,
+  "unassigned_batches": 0,
+  "open_complaints": 1,
+  "refunds_to_review": 0
+ },
+ "/ops/custody": [
+  {
+   "order_id": "9edf4dce-858f-4eda-ae5a-fc3e99871549",
+   "code": "UP-98WPV8",
+   "status": "delivered",
+   "stage": "at_cabin",
+   "college": "Sample College (dev)",
+   "shop": "Quick Prints",
+   "rider": "Kumar",
+   "batch_id": "777dc034-e817-4522-82bd-e786766c8415",
+   "batch_code": "DB-7BUS3E",
+   "batch_mode": "consolidated",
+   "batch_status": "completed",
+   "delivery_at": "2026-11-28T10:00:00+05:30",
+   "packed": true,
+   "needs_attention": false,
+   "shelf_photo_url": "https://files.test/shelf/777dc034-e817-4522-82bd-e786766c8415/160479c0-40b4-4eaa-a257-ad9afd10597d.jpg"
+  }
+ ],
+ "/orders": [
+  {
+   "id": "9edf4dce-858f-4eda-ae5a-fc3e99871549",
+   "code": "UP-98WPV8",
+   "status": "delivered",
+   "payment_status": "paid",
+   "student_name": "Asha Raman",
+   "student_mobile": "9876543210",
+   "college": "Sample College (dev)",
+   "shop": "Quick Prints",
+   "slot_date": "2026-11-28",
+   "created_at": "2026-11-26T15:06:19",
+   "total": "102.60"
+  }
+ ],
+ "/orders/9edf4dce-858f-4eda-ae5a-fc3e99871549": {
+  "id": "9edf4dce-858f-4eda-ae5a-fc3e99871549",
+  "code": "UP-98WPV8",
+  "status": "delivered",
+  "payment_status": "paid",
+  "created_at": "2026-11-26T15:06:19",
+  "binding": "spiral",
+  "cover_page": true,
+  "subject_name": "Data Structures",
+  "subject_code": "CS3301",
+  "cover_template": "classic",
+  "cover_color": "navy",
+  "cover_title": null,
+  "coupon_code": null,
+  "quotation": {
+   "printing_amount": "17.60",
+   "cover_amount": "10.00",
+   "discount": "0.00",
+   "lines": [
+    {
+     "label": "notes.pdf (4 pages \u00d7 2)",
+     "amount": "17.60"
+    },
+    {
+     "label": "Spiral binding",
+     "amount": "60.00"
+    },
+    {
+     "label": "Cover pages",
+     "amount": "10.00"
+    }
+   ],
+   "order_id": "9edf4dce-858f-4eda-ae5a-fc3e99871549",
+   "id": "60b70ada-b0ea-469c-8e17-a890d97e3e6c",
+   "binding_amount": "60.00",
+   "delivery_fee": "15.00",
+   "total": "102.60",
+   "created_at": "2026-11-26T15:06:20"
+  },
+  "shelf_photo_url": "https://files.test/shelf/777dc034-e817-4522-82bd-e786766c8415/160479c0-40b4-4eaa-a257-ad9afd10597d.jpg",
+  "college": "Sample College (dev)",
+  "slot": {
+   "slot_id": "e1e46cfb-fd8a-4081-aba6-ebf4ecc09096",
+   "label": "Morning",
+   "date": "2026-11-28",
+   "delivery_at": "2026-11-28T10:00:00+05:30",
+   "cutoff_at": "2026-11-28T08:00:00+05:30",
+   "remaining": 49,
+   "is_open": true
+  },
+  "student": {
+   "name": "Asha Raman",
+   "mobile": "9876543210",
+   "register_number": "21CS001",
+   "department": "CSE"
+  },
+  "shop": {
+   "id": "a05e77ce-2aa7-4349-b548-d165d6caaf71",
+   "name": "Quick Prints"
+  },
+  "commission_amount": "8.76",
+  "shop_entitlement": "78.84",
+  "documents": [
+   {
+    "filename": "notes.pdf",
+    "page_count": 4,
+    "copies": 2,
+    "paper_size": "A4",
+    "orientation": "auto",
+    "rules": [
+     {
+      "page_from": 1,
+      "page_to": 1,
+      "color": "color",
+      "gsm": 100,
+      "sided": "single"
+     },
+     {
+      "page_from": 2,
+      "page_to": 4,
+      "color": "bw",
+      "gsm": 80,
+      "sided": "single"
+     }
+    ]
+   }
+  ],
+  "payments": [
+   {
+    "id": "7eb53356-3ff6-47ee-99ab-5bf385f86f1f",
+    "provider_order_id": "order_1",
+    "provider_payment_id": "pay_123",
+    "amount": "102.60",
+    "status": "captured",
+    "is_current": true
+   }
+  ],
+  "refunds": [],
+  "complaints": [
+   {
+    "id": "9d2eea30-7980-4227-bef8-05624061accd",
+    "category": "missing_pages",
+    "status": "open"
+   }
+  ],
+  "events": [
+   {
+    "type": "draft",
+    "note": null,
+    "at": "2026-11-26T15:06:19.976783"
+   },
+   {
+    "type": "awaiting_payment",
+    "note": null,
+    "at": "2026-11-26T15:06:20.078412"
+   },
+   {
+    "type": "placed",
+    "note": "payment verified",
+    "at": "2026-11-26T15:06:20.091710"
+   },
+   {
+    "type": "assigned",
+    "note": "shop Quick Prints",
+    "at": "2026-11-26T15:06:20.097709"
+   },
+   {
+    "type": "printing",
+    "note": "accepted by shop",
+    "at": "2026-11-26T15:06:20.107544"
+   },
+   {
+    "type": "packing",
+    "note": "printing done",
+    "at": "2026-11-26T15:06:20.124625"
+   },
+   {
+    "type": "packed",
+    "note": null,
+    "at": "2026-11-26T15:06:20.134624"
+   },
+   {
+    "type": "handover_verified",
+    "note": "OTP verified",
+    "at": "2026-11-26T15:06:20.180555"
+   },
+   {
+    "type": "out_for_delivery",
+    "note": null,
+    "at": "2026-11-26T15:06:20.195558"
+   },
+   {
+    "type": "delivered",
+    "note": null,
+    "at": "2026-11-26T15:06:20.235045"
+   }
+  ],
+  "custody": [
+   {
+    "type": "accepted_by_shop",
+    "note": null,
+    "at": "2026-11-26T15:06:20",
+    "batch_id": "777dc034-e817-4522-82bd-e786766c8415"
+   },
+   {
+    "type": "handover_verified",
+    "note": null,
+    "at": "2026-11-26T15:06:20",
+    "batch_id": "777dc034-e817-4522-82bd-e786766c8415"
+   },
+   {
+    "type": "departed",
+    "note": null,
+    "at": "2026-11-26T15:06:20",
+    "batch_id": "777dc034-e817-4522-82bd-e786766c8415"
+   },
+   {
+    "type": "delivered",
+    "note": null,
+    "at": "2026-11-26T15:06:20",
+    "batch_id": "777dc034-e817-4522-82bd-e786766c8415"
+   }
+  ]
+ },
+ "/batches": [
+  {
+   "id": "777dc034-e817-4522-82bd-e786766c8415",
+   "code": "DB-7BUS3E",
+   "mode": "consolidated",
+   "status": "completed",
+   "college": "Sample College (dev)",
+   "slot_date": "2026-11-28",
+   "rider": "Kumar",
+   "rider_id": "58da9908-49e4-465a-8029-29f39c18e382",
+   "packets": 1,
+   "payout_total": "60.00",
+   "shelf_photo_url": "https://files.test/shelf/777dc034-e817-4522-82bd-e786766c8415/160479c0-40b4-4eaa-a257-ad9afd10597d.jpg"
+  }
+ ],
+ "/shops": [
+  {
+   "id": "d8b8f1e1-ab88-427c-8ec1-cdbb9c6f2ed6",
+   "shop_name": "Quick Prints",
+   "owner_name": "Ravi",
+   "area": "Guindy",
+   "landmark": "Near bus stand",
+   "latitude": "13.082700",
+   "longitude": "80.270700",
+   "upi_id": "ravi@okbank",
+   "status": "pending",
+   "rejection_reason": null,
+   "is_open": false,
+   "services": [
+    "binding_calico",
+    "binding_hard",
+    "binding_soft",
+    "binding_spiral",
+    "print_a3_bw",
+    "print_a3_color",
+    "print_a4_bw",
+    "print_a4_color"
+   ],
+   "colleges": [],
+   "bank_account_number": null,
+   "bank_ifsc": null,
+   "bank_account_name": null,
+   "created_at": "2026-11-26T15:06:20"
+  },
+  {
+   "id": "a05e77ce-2aa7-4349-b548-d165d6caaf71",
+   "shop_name": "Quick Prints",
+   "owner_name": "Ravi",
+   "area": "Guindy",
+   "landmark": "Near bus stand",
+   "latitude": "13.082700",
+   "longitude": "80.270700",
+   "upi_id": "ravi@okbank",
+   "status": "approved",
+   "rejection_reason": null,
+   "is_open": true,
+   "services": [
+    "binding_calico",
+    "binding_hard",
+    "binding_soft",
+    "binding_spiral",
+    "print_a3_bw",
+    "print_a3_color",
+    "print_a4_bw",
+    "print_a4_color"
+   ],
+   "colleges": [
+    "Sample College (dev)"
+   ],
+   "bank_account_number": null,
+   "bank_ifsc": null,
+   "bank_account_name": null,
+   "created_at": "2026-11-26T15:06:19"
+  }
+ ],
+ "/shops?status=approved": [
+  {
+   "id": "a05e77ce-2aa7-4349-b548-d165d6caaf71",
+   "shop_name": "Quick Prints",
+   "owner_name": "Ravi",
+   "area": "Guindy",
+   "landmark": "Near bus stand",
+   "latitude": "13.082700",
+   "longitude": "80.270700",
+   "upi_id": "ravi@okbank",
+   "status": "approved",
+   "rejection_reason": null,
+   "is_open": true,
+   "services": [
+    "binding_calico",
+    "binding_hard",
+    "binding_soft",
+    "binding_spiral",
+    "print_a3_bw",
+    "print_a3_color",
+    "print_a4_bw",
+    "print_a4_color"
+   ],
+   "colleges": [
+    "Sample College (dev)"
+   ],
+   "bank_account_number": null,
+   "bank_ifsc": null,
+   "bank_account_name": null,
+   "created_at": "2026-11-26T15:06:19"
+  }
+ ],
+ "/shops?status=pending": [
+  {
+   "id": "d8b8f1e1-ab88-427c-8ec1-cdbb9c6f2ed6",
+   "shop_name": "Quick Prints",
+   "owner_name": "Ravi",
+   "area": "Guindy",
+   "landmark": "Near bus stand",
+   "latitude": "13.082700",
+   "longitude": "80.270700",
+   "upi_id": "ravi@okbank",
+   "status": "pending",
+   "rejection_reason": null,
+   "is_open": false,
+   "services": [
+    "binding_calico",
+    "binding_hard",
+    "binding_soft",
+    "binding_spiral",
+    "print_a3_bw",
+    "print_a3_color",
+    "print_a4_bw",
+    "print_a4_color"
+   ],
+   "colleges": [],
+   "bank_account_number": null,
+   "bank_ifsc": null,
+   "bank_account_name": null,
+   "created_at": "2026-11-26T15:06:20"
+  }
+ ],
+ "/shops/a05e77ce-2aa7-4349-b548-d165d6caaf71/performance": {
+  "orders_assigned": 1,
+  "orders_completed": 1,
+  "rejections": 0,
+  "not_ready_skips": 0,
+  "rejection_rate": 0.0,
+  "total_entitlement": "78.84"
+ },
+ "/riders": [
+  {
+   "id": "c21560c4-41df-46b4-920a-bc881c9a2d14",
+   "full_name": "Kumar",
+   "base_area": "Guindy",
+   "vehicle_number": "TN09AB1234",
+   "upi_id": "kumar@okbank",
+   "kyc_status": "pending",
+   "kyc_note": null,
+   "has_dl": true,
+   "has_rc": true,
+   "is_online": false,
+   "primary_colleges": [],
+   "backup_colleges": []
+  },
+  {
+   "id": "58da9908-49e4-465a-8029-29f39c18e382",
+   "full_name": "Kumar",
+   "base_area": "Guindy",
+   "vehicle_number": "TN09AB1234",
+   "upi_id": "kumar@okbank",
+   "kyc_status": "approved",
+   "kyc_note": null,
+   "has_dl": true,
+   "has_rc": true,
+   "is_online": true,
+   "primary_colleges": [
+    "Sample College (dev)"
+   ],
+   "backup_colleges": []
+  }
+ ],
+ "/riders?kyc=approved": [
+  {
+   "id": "58da9908-49e4-465a-8029-29f39c18e382",
+   "full_name": "Kumar",
+   "base_area": "Guindy",
+   "vehicle_number": "TN09AB1234",
+   "upi_id": "kumar@okbank",
+   "kyc_status": "approved",
+   "kyc_note": null,
+   "has_dl": true,
+   "has_rc": true,
+   "is_online": true,
+   "primary_colleges": [
+    "Sample College (dev)"
+   ],
+   "backup_colleges": []
+  }
+ ],
+ "/riders?kyc=pending": [
+  {
+   "id": "c21560c4-41df-46b4-920a-bc881c9a2d14",
+   "full_name": "Kumar",
+   "base_area": "Guindy",
+   "vehicle_number": "TN09AB1234",
+   "upi_id": "kumar@okbank",
+   "kyc_status": "pending",
+   "kyc_note": null,
+   "has_dl": true,
+   "has_rc": true,
+   "is_online": false,
+   "primary_colleges": [],
+   "backup_colleges": []
+  }
+ ],
+ "/riders/58da9908-49e4-465a-8029-29f39c18e382/performance": {
+  "runs_completed": 1,
+  "packets_delivered": 1,
+  "packets_skipped": 0,
+  "total_payout": "60.00"
+ },
+ "/riders/58da9908-49e4-465a-8029-29f39c18e382/documents": {
+  "dl_url": "https://files.test/kyc/58da9908-49e4-465a-8029-29f39c18e382/dl-3bc1f819-c283-4dcc-b88c-97e51c734aea",
+  "rc_url": "https://files.test/kyc/58da9908-49e4-465a-8029-29f39c18e382/rc-a6ee1f92-4c2c-4f7b-9909-9b8a78736833"
+ },
+ "/complaints": [
+  {
+   "id": "9d2eea30-7980-4227-bef8-05624061accd",
+   "order_id": "9edf4dce-858f-4eda-ae5a-fc3e99871549",
+   "order_code": "UP-98WPV8",
+   "student_name": "Asha Raman",
+   "category": "missing_pages",
+   "status": "open",
+   "created_at": "2026-11-26T15:06:20"
+  }
+ ],
+ "/complaints/9d2eea30-7980-4227-bef8-05624061accd": {
+  "id": "9d2eea30-7980-4227-bef8-05624061accd",
+  "category": "missing_pages",
+  "description": "Pages 3-4 are missing",
+  "status": "open",
+  "admin_response": null,
+  "created_at": "2026-11-26T15:06:20",
+  "evidence_photo_urls": [
+   "https://files.test/complaints/9d2eea30-7980-4227-bef8-05624061accd/1c88f487342343d4b12443c478744d58.jpg"
+  ],
+  "resolved_at": null,
+  "shelf_photo_urls": [
+   "https://files.test/shelf/777dc034-e817-4522-82bd-e786766c8415/160479c0-40b4-4eaa-a257-ad9afd10597d.jpg"
+  ],
+  "order": {
+   "id": "9edf4dce-858f-4eda-ae5a-fc3e99871549",
+   "code": "UP-98WPV8",
+   "status": "delivered",
+   "payment_status": "paid",
+   "total": "102.60"
+  },
+  "student": {
+   "name": "Asha Raman"
+  },
+  "custody": [
+   {
+    "type": "accepted_by_shop",
+    "at": "2026-11-26T15:06:20",
+    "note": null
+   },
+   {
+    "type": "handover_verified",
+    "at": "2026-11-26T15:06:20",
+    "note": null
+   },
+   {
+    "type": "departed",
+    "at": "2026-11-26T15:06:20",
+    "note": null
+   },
+   {
+    "type": "delivered",
+    "at": "2026-11-26T15:06:20",
+    "note": null
+   }
+  ],
+  "refunds": [],
+  "late_refund_percent": "50.00"
+ },
+ "/refunds": [],
+ "/colleges": [
+  {
+   "id": "ed90985f-57d9-44b4-be3d-5823d4edd4c3",
+   "name": "Sample College (dev)",
+   "city": "Chennai",
+   "security_cabin": "Main gate security cabin",
+   "drop_instructions": "Place packets on the labelled shelf.",
+   "collection_instructions": "Show your order ID at the security cabin and collect your packet.",
+   "latitude": "13.010000",
+   "longitude": "80.230000",
+   "active": true,
+   "slots": [
+    {
+     "id": "e1e46cfb-fd8a-4081-aba6-ebf4ecc09096",
+     "label": "Morning",
+     "delivery_time": "10:00",
+     "cutoff_minutes": 120,
+     "capacity": 50,
+     "active": true
+    },
+    {
+     "id": "d7f489e0-b8c3-4799-8614-fe00adacef90",
+     "label": "Afternoon",
+     "delivery_time": "13:30",
+     "cutoff_minutes": 120,
+     "capacity": 50,
+     "active": true
+    },
+    {
+     "id": "a1a6bb12-b7d3-48bc-a933-42f368c0c278",
+     "label": "Evening",
+     "delivery_time": "16:30",
+     "cutoff_minutes": 120,
+     "capacity": 50,
+     "active": true
+    }
+   ]
+  }
+ ],
+ "/config": {
+  "delivery_fee": "15.00",
+  "cover_page_fee": "5.00",
+  "commission_percent": "10.00",
+  "max_upload_mb": 25,
+  "slot_hold_minutes": 15,
+  "rider_base_fee": "40.00",
+  "rider_extra_shop_fee": "15.00",
+  "rider_packet_bonus": "3.00",
+  "rider_min_guarantee": "60.00",
+  "no_wait_minutes": 4,
+  "gateway_fee_percent": "2.00",
+  "late_refund_percent": "50.00"
+ },
+ "/config/rates": {
+  "rates": [
+   {
+    "paper_size": "A3",
+    "gsm": 70,
+    "color": "bw",
+    "sided": "double",
+    "price_per_page": "2.50"
+   },
+   {
+    "paper_size": "A3",
+    "gsm": 80,
+    "color": "bw",
+    "sided": "double",
+    "price_per_page": "2.60"
+   },
+   {
+    "paper_size": "A3",
+    "gsm": 100,
+    "color": "bw",
+    "sided": "double",
+    "price_per_page": "3.00"
+   },
+   {
+    "paper_size": "A3",
+    "gsm": 70,
+    "color": "bw",
+    "sided": "single",
+    "price_per_page": "3.00"
+   },
+   {
+    "paper_size": "A3",
+    "gsm": 80,
+    "color": "bw",
+    "sided": "single",
+    "price_per_page": "3.10"
+   },
+   {
+    "paper_size": "A3",
+    "gsm": 100,
+    "color": "bw",
+    "sided": "single",
+    "price_per_page": "3.50"
+   },
+   {
+    "paper_size": "A3",
+    "gsm": 70,
+    "color": "color",
+    "sided": "double",
+    "price_per_page": "9.00"
+   },
+   {
+    "paper_size": "A3",
+    "gsm": 80,
+    "color": "color",
+    "sided": "double",
+    "price_per_page": "9.10"
+   },
+   {
+    "paper_size": "A3",
+    "gsm": 100,
+    "color": "color",
+    "sided": "double",
+    "price_per_page": "9.50"
+   },
+   {
+    "paper_size": "A3",
+    "gsm": 70,
+    "color": "color",
+    "sided": "single",
+    "price_per_page": "10.00"
+   },
+   {
+    "paper_size": "A3",
+    "gsm": 80,
+    "color": "color",
+    "sided": "single",
+    "price_per_page": "10.10"
+   },
+   {
+    "paper_size": "A3",
+    "gsm": 100,
+    "color": "color",
+    "sided": "single",
+    "price_per_page": "10.50"
+   },
+   {
+    "paper_size": "A4",
+    "gsm": 70,
+    "color": "bw",
+    "sided": "double",
+    "price_per_page": "0.80"
+   },
+   {
+    "paper_size": "A4",
+    "gsm": 80,
+    "color": "bw",
+    "sided": "double",
+    "price_per_page": "0.90"
+   },
+   {
+    "paper_size": "A4",
+    "gsm": 100,
+    "color": "bw",
+    "sided": "double",
+    "price_per_page": "1.30"
+   },
+   {
+    "paper_size": "A4",
+    "gsm": 70,
+    "color": "bw",
+    "sided": "single",
+    "price_per_page": "1.00"
+   },
+   {
+    "paper_size": "A4",
+    "gsm": 80,
+    "color": "bw",
+    "sided": "single",
+    "price_per_page": "1.10"
+   },
+   {
+    "paper_size": "A4",
+    "gsm": 100,
+    "color": "bw",
+    "sided": "single",
+    "price_per_page": "1.50"
+   },
+   {
+    "paper_size": "A4",
+    "gsm": 70,
+    "color": "color",
+    "sided": "double",
+    "price_per_page": "4.50"
+   },
+   {
+    "paper_size": "A4",
+    "gsm": 80,
+    "color": "color",
+    "sided": "double",
+    "price_per_page": "4.60"
+   },
+   {
+    "paper_size": "A4",
+    "gsm": 100,
+    "color": "color",
+    "sided": "double",
+    "price_per_page": "5.00"
+   },
+   {
+    "paper_size": "A4",
+    "gsm": 70,
+    "color": "color",
+    "sided": "single",
+    "price_per_page": "5.00"
+   },
+   {
+    "paper_size": "A4",
+    "gsm": 80,
+    "color": "color",
+    "sided": "single",
+    "price_per_page": "5.10"
+   },
+   {
+    "paper_size": "A4",
+    "gsm": 100,
+    "color": "color",
+    "sided": "single",
+    "price_per_page": "5.50"
+   }
+  ],
+  "binding": [
+   {
+    "binding": "spiral",
+    "price": "30.00"
+   },
+   {
+    "binding": "calico",
+    "price": "40.00"
+   },
+   {
+    "binding": "soft",
+    "price": "60.00"
+   },
+   {
+    "binding": "hard",
+    "price": "150.00"
+   }
+  ]
+ },
+ "/coupons": [
+  {
+   "code": "WELCOME10",
+   "percent_off": "10.00",
+   "flat_off": null,
+   "active": true,
+   "valid_until": null
+  }
+ ],
+ "/finance/summary": {
+  "gross_revenue": "102.60",
+  "printing_charges": "87.60",
+  "delivery_fee": "15.00",
+  "discount": "0.00",
+  "shop_entitlement": "78.84",
+  "rider_payout": "60.00",
+  "gateway_fee": "2.05",
+  "refund": "0.00",
+  "shop_refund_recovery": "0.00",
+  "platform_commission": "8.76",
+  "net_platform_margin": "-38.29"
+ },
+ "/finance/ledger": [
+  {
+   "id": "03cb36d4-f45e-4001-aa44-fc7bf2aa8ecd",
+   "type": "shop_entitlement",
+   "amount": "78.84",
+   "order_id": "9edf4dce-858f-4eda-ae5a-fc3e99871549",
+   "batch_id": null,
+   "note": null,
+   "created_at": "2026-11-26T15:06:20"
+  },
+  {
+   "id": "0787eaa9-9f83-43bf-ac0b-000d898796c2",
+   "type": "platform_commission",
+   "amount": "8.76",
+   "order_id": "9edf4dce-858f-4eda-ae5a-fc3e99871549",
+   "batch_id": null,
+   "note": null,
+   "created_at": "2026-11-26T15:06:20"
+  },
+  {
+   "id": "210df36c-a16f-4b54-998f-0a09fc9510e6",
+   "type": "gateway_fee",
+   "amount": "2.05",
+   "order_id": "9edf4dce-858f-4eda-ae5a-fc3e99871549",
+   "batch_id": null,
+   "note": "estimated from gateway_fee_percent",
+   "created_at": "2026-11-26T15:06:20"
+  },
+  {
+   "id": "281b9a9a-05ed-4eef-b1d8-b1d573fbc2e6",
+   "type": "rider_payout",
+   "amount": "60.00",
+   "order_id": null,
+   "batch_id": "777dc034-e817-4522-82bd-e786766c8415",
+   "note": null,
+   "created_at": "2026-11-26T15:06:20"
+  },
+  {
+   "id": "37813728-d3c1-414d-8db4-4d4211cfee6d",
+   "type": "gross_revenue",
+   "amount": "102.60",
+   "order_id": "9edf4dce-858f-4eda-ae5a-fc3e99871549",
+   "batch_id": null,
+   "note": null,
+   "created_at": "2026-11-26T15:06:20"
+  },
+  {
+   "id": "3882606a-65da-4418-97d2-d21ff8e2fee0",
+   "type": "delivery_fee",
+   "amount": "15.00",
+   "order_id": "9edf4dce-858f-4eda-ae5a-fc3e99871549",
+   "batch_id": null,
+   "note": null,
+   "created_at": "2026-11-26T15:06:20"
+  },
+  {
+   "id": "755ed737-a789-4d51-8683-40af01c4ebb9",
+   "type": "discount",
+   "amount": "0.00",
+   "order_id": "9edf4dce-858f-4eda-ae5a-fc3e99871549",
+   "batch_id": null,
+   "note": null,
+   "created_at": "2026-11-26T15:06:20"
+  },
+  {
+   "id": "9e4f5d3a-8d1b-4107-ab56-3d30789ea8b4",
+   "type": "printing_charges",
+   "amount": "87.60",
+   "order_id": "9edf4dce-858f-4eda-ae5a-fc3e99871549",
+   "batch_id": null,
+   "note": null,
+   "created_at": "2026-11-26T15:06:20"
+  }
+ ],
+ "/audit": [
+  {
+   "id": "ae6fd89c-a2b5-48e7-8de8-9c128cf34181",
+   "actor_id": "de31fea3-778c-4ae6-8f1a-d4c6cfcb41b5",
+   "action": "settlement.generate",
+   "entity": "rider_settlement",
+   "entity_id": "2b3324a7-7fbb-49a2-92eb-6083b9331566",
+   "data": {
+    "amount": "60.00",
+    "runs": 1
+   },
+   "created_at": "2026-11-26T15:06:20"
+  },
+  {
+   "id": "ff124af8-8117-4c17-8067-12e3ccac54f7",
+   "actor_id": "de31fea3-778c-4ae6-8f1a-d4c6cfcb41b5",
+   "action": "settlement.generate",
+   "entity": "shop_settlement",
+   "entity_id": "8115d7af-cd9e-497c-86a5-733c0fd9ca64",
+   "data": {
+    "net": "78.84",
+    "orders": 1
+   },
+   "created_at": "2026-11-26T15:06:20"
+  },
+  {
+   "id": "5c2d58dc-5839-4988-98dc-05bc2355038d",
+   "actor_id": "de31fea3-778c-4ae6-8f1a-d4c6cfcb41b5",
+   "action": "coupon.upsert",
+   "entity": "coupon",
+   "entity_id": "WELCOME10",
+   "data": {
+    "code": "WELCOME10",
+    "percent_off": "10",
+    "flat_off": null,
+    "active": true,
+    "valid_until": null
+   },
+   "created_at": "2026-11-26T15:06:20"
+  },
+  {
+   "id": "1cc5fea7-3cce-4749-b470-3e04602657e0",
+   "actor_id": "de31fea3-778c-4ae6-8f1a-d4c6cfcb41b5",
+   "action": "rider.zones",
+   "entity": "rider",
+   "entity_id": "58da9908-49e4-465a-8029-29f39c18e382",
+   "data": {
+    "primary": [
+     "ed90985f-57d9-44b4-be3d-5823d4edd4c3"
+    ],
+    "backup": []
+   },
+   "created_at": "2026-11-26T15:06:19"
+  },
+  {
+   "id": "c9c17cd9-1cbc-454e-8f61-4122c2bdd61d",
+   "actor_id": "de31fea3-778c-4ae6-8f1a-d4c6cfcb41b5",
+   "action": "rider.approve",
+   "entity": "rider",
+   "entity_id": "58da9908-49e4-465a-8029-29f39c18e382",
+   "data": null,
+   "created_at": "2026-11-26T15:06:19"
+  },
+  {
+   "id": "f4335ab0-8df0-4fcd-9064-0eac4f031e9b",
+   "actor_id": "de31fea3-778c-4ae6-8f1a-d4c6cfcb41b5",
+   "action": "shop.colleges",
+   "entity": "shop",
+   "entity_id": "a05e77ce-2aa7-4349-b548-d165d6caaf71",
+   "data": {
+    "colleges": [
+     "ed90985f-57d9-44b4-be3d-5823d4edd4c3"
+    ]
+   },
+   "created_at": "2026-11-26T15:06:19"
+  },
+  {
+   "id": "70ed25c2-76db-497a-ad9d-40b1374610b8",
+   "actor_id": "de31fea3-778c-4ae6-8f1a-d4c6cfcb41b5",
+   "action": "shop.approve",
+   "entity": "shop",
+   "entity_id": "a05e77ce-2aa7-4349-b548-d165d6caaf71",
+   "data": null,
+   "created_at": "2026-11-26T15:06:19"
+  }
+ ],
+ "/settlements/shops": [
+  {
+   "id": "8115d7af-cd9e-497c-86a5-733c0fd9ca64",
+   "shop_id": "a05e77ce-2aa7-4349-b548-d165d6caaf71",
+   "shop_name": "Quick Prints",
+   "period_start": "2026-11-19",
+   "period_end": "2026-11-27",
+   "order_count": 1,
+   "gross_amount": "78.84",
+   "refund_deductions": "0.00",
+   "net_amount": "78.84",
+   "status": "pending",
+   "upi_reference": null,
+   "payout_to": "ravi@okbank"
+  }
+ ],
+ "/settlements/riders": [
+  {
+   "id": "2b3324a7-7fbb-49a2-92eb-6083b9331566",
+   "rider_id": "58da9908-49e4-465a-8029-29f39c18e382",
+   "rider_name": "Kumar",
+   "period_start": "2026-11-19",
+   "period_end": "2026-11-27",
+   "batch_count": 1,
+   "amount": "60.00",
+   "status": "pending",
+   "upi_reference": null,
+   "payout_to": "kumar@okbank"
+  }
+ ],
+ "/settlements/shops?status=pending": [
+  {
+   "id": "8115d7af-cd9e-497c-86a5-733c0fd9ca64",
+   "shop_id": "a05e77ce-2aa7-4349-b548-d165d6caaf71",
+   "shop_name": "Quick Prints",
+   "period_start": "2026-11-19",
+   "period_end": "2026-11-27",
+   "order_count": 1,
+   "gross_amount": "78.84",
+   "refund_deductions": "0.00",
+   "net_amount": "78.84",
+   "status": "pending",
+   "upi_reference": null,
+   "payout_to": "ravi@okbank"
+  }
+ ],
+ "/settlements/riders?status=pending": [
+  {
+   "id": "2b3324a7-7fbb-49a2-92eb-6083b9331566",
+   "rider_id": "58da9908-49e4-465a-8029-29f39c18e382",
+   "rider_name": "Kumar",
+   "period_start": "2026-11-19",
+   "period_end": "2026-11-27",
+   "batch_count": 1,
+   "amount": "60.00",
+   "status": "pending",
+   "upi_reference": null,
+   "payout_to": "kumar@okbank"
+  }
+ ]
+}
