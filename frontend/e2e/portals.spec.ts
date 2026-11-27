@@ -23,7 +23,7 @@ async function switchTo(page: Page, portal: RegExp) {
 
 test("stay signed in to several portals and switch between them", async ({ page }) => {
   await page.goto("/student/login");
-  await signUp(page, "student", "Asha Raman", "9876543210");
+  await signUp(page, "student", "Asha Raman", "9876500001");
   await expect(page.getByRole("heading", { name: "Set up your profile" })).toBeVisible();
   // finish the student profile so the student portal shows its main layout
   await page.getByLabel("College").selectOption({ label: "Sample College (dev), Chennai" });
@@ -35,7 +35,7 @@ test("stay signed in to several portals and switch between them", async ({ page 
 
   await switchTo(page, /Printing Shop.*Not signed in/);
   await expect(page).toHaveURL(/\/shop\/login$/);
-  await signUp(page, "shop", "Ravi Kumar", "9111111111");
+  await signUp(page, "shop", "Ravi Kumar", "9111100001");
   await expect(page.getByRole("heading", { name: "Register your shop" })).toBeVisible();
 
   // the menu shows both sign-ins

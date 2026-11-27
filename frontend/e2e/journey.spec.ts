@@ -60,6 +60,21 @@ test("full order journey across all four websites", async ({ browser }) => {
   const admin = await portal(browser);
   const student = await portal(browser);
 
+  // Stand-in for Razorpay Checkout: "pays" at once and signs with the E2E test secret; the backend verifies it for real.
+  await student.ctx.exposeFunction("rzpSign", (orderId: string, paymentId: string) =>
+    createHmac("sha256", RZP_SECRET).update(`${orderId}|${paymentId}`).digest("hex"));
+  await student.ctx.addInitScript(() => {
+    (window as unknown as { Razorpay: unknown }).Razorpay = class {
+      constructor(private o: { order_id: string; handler: (r: unknown) => void }) {}
+      on() {}
+      async open() {
+        const payment = `pay_e2e_${Date.now()}`;
+        const sign = (window as unknown as { rzpSign: (a: string, b: string) => Promise<string> }).rzpSign;
+        this.o.handler({ razorpay_payment_id: payment, razorpay_order_id: this.o.order_id, razorpay_signature: await sign(this.o.order_id, payment) });
+      }
+    };
+  });
+
   await test.step("shop owner signs up and registers a shop", async () => {
     const page = shop.page;
     await signUp(page, "shop", SHOP);
@@ -152,7 +167,7 @@ test("full order journey across all four websites", async ({ browser }) => {
 
   await test.step("student designs the print in the studio and the live price follows", async () => {
     const page = student.page;
-    await expect(page.getByRole("img", { name: "Page 1" })).toBeVisible(); // the real PDF, rendered by PDF.js
+    await expect(page.getByRole("img", { name: "Page 1" }).first()).toBeVisible(); // the real PDF, rendered by PDF.js
     const total = page.getByRole("complementary", { name: "Selected options and price" }).getByText(/^₹\d/).last();
     await expect(total).toBeVisible();
     const before = await total.textContent();
@@ -174,12 +189,100 @@ test("full order journey across all four websites", async ({ browser }) => {
     await expect(page.getByRole("heading", { name: "Review your print" })).toBeVisible();
     await expect(page.getByText("Spiral").first()).toBeVisible();
     await page.getByRole("button", { name: /Choose slot and pay/ }).click();
-    await page.waitForTimeout(2000);
-    await snap(page, "student-payment");
-    throw new Error("SNAPSHOT");
+    await expect(page.getByRole("heading", { name: "Slot and payment" })).toBeVisible();
   });
 
-  void student;
+  await test.step("student picks a slot and pays (Razorpay stand-in, real signature check)", async () => {
+    const page = student.page;
+    await page.getByRole("button", { name: /^Morning Arrives/ }).last().click();
+    await expect(page.getByText("Choose a slot to see your total.")).toHaveCount(0);
+    await page.getByRole("button", { name: /^Pay/ }).click();
+    await expect(page.getByRole("heading", { name: "Order tracking" })).toBeVisible();
+  });
+
+  await test.step("shop sees the new order", async () => {
+    const page = shop.page;
+    await page.goto("/shop");
+    const card = page.getByRole("article").filter({ hasText: "You earn" }).first();
+    await expect(card).toBeVisible();
+    await card.getByRole("button", { name: "Accept order" }).click();
+    await page.getByRole("tab", { name: /^In progress/ }).click();
+    const card2 = page.getByRole("article").filter({ hasText: "You earn" }).first();
+    await card2.getByRole("button", { name: "Mark printing done" }).click();
+    await page.waitForTimeout(2000);
+    await snap(page, "shop-after-printing");
+    await page.getByRole("button", { name: "Mark binding and packing done" }).click();
+    await page.waitForTimeout(2000);
+    await expect(page.getByText("Ready for handover").first()).toBeVisible();
+  });
+
+  await test.step("rider is offered the run", async () => {
+    const page = rider.page;
+    await page.goto("/rider");
+    await page.waitForTimeout(3000);
+    await expect(page.getByText("New run offer")).toBeVisible();
+    await expect(page.getByText("₹60.00").first()).toBeVisible(); // guaranteed payout
+    await page.getByRole("button", { name: /^Accept/ }).click();
+    await expect(page.getByText("Picking up")).toBeVisible();
+  });
+
+  let handoverCode = "";
+  await test.step("rider arrives; shop reads out the 4-digit handover code; rider verifies it and collects the packet", async () => {
+    await rider.page.getByRole("button", { name: "I’ve arrived" }).or(rider.page.getByRole("button", { name: "I've arrived" })).click();
+    const generate = shop.page.getByRole("button", { name: "Generate handover OTP" });
+    await expect(generate).toBeVisible();
+    await generate.click();
+    const shown = shop.page.getByLabel(/^Handover code.*: \d \d \d \d$/);
+    await expect(shown).toBeVisible();
+    handoverCode = ((await shown.getAttribute("aria-label")) ?? "").split(": ")[1].replace(/ /g, "");
+    expect(handoverCode).toMatch(/^\d{4}$/);
+
+    const page = rider.page;
+    // a wrong code is refused by the backend
+    const wrong = handoverCode === "0000" ? "1111" : "0000";
+    await page.getByRole("textbox", { name: /Handover code for .* digit 1/ }).click();
+    await page.keyboard.type(wrong);
+    await page.waitForTimeout(2000);
+    await expect(page.getByText(/^Packet UP-\S+ collected$/)).toHaveCount(0); // the wrong code did not release the packet
+    await expect(page.getByRole("alert").filter({ hasText: "Incorrect code" })).toBeVisible();
+
+    await page.getByRole("textbox", { name: /Handover code for .* digit 1/ }).click();
+    await page.keyboard.type(handoverCode); // the 4th digit submits automatically
+    await expect(page.getByText("1 of 1 packet collected")).toBeVisible();
+  });
+
+  await test.step("rider drives to the college, uploads the shelf photo and completes the delivery", async () => {
+    const page = rider.page;
+    await page.getByRole("button", { name: "Start delivery to college" }).click();
+    await expect(page.getByRole("heading", { name: "Shelf photo" })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Complete delivery/ })).toBeDisabled(); // photo is mandatory
+    await page.locator('input[type="file"]').setInputFiles(path.join(FIX, "photo.jpg"));
+    await page.getByRole("button", { name: "Upload photo" }).click();
+    await expect(page.getByText("Photo in. You're ready to finish.")).toBeVisible();
+    await page.getByRole("button", { name: /Complete delivery/ }).click();
+    await expect(page.getByRole("heading", { name: "Delivery complete" })).toBeVisible();
+    await expect(page.getByText("₹60.00").first()).toBeVisible();
+  });
+
+  await test.step("student sees the delivery and the shelf photo, then collects the order", async () => {
+    const page = student.page;
+    await page.reload();
+    await page.waitForTimeout(2500);
+    await expect(page.getByText("At security cabin")).toBeVisible();
+    await expect(page.getByRole("img", { name: /Shelf at .* where packet .* was placed/ })).toBeVisible();
+    await page.getByRole("button", { name: "Collect my packet" }).click();
+    await expect(page.getByRole("button", { name: "Collect my packet" })).toHaveCount(0);
+    await page.waitForTimeout(1500);
+    await snap(page, "student-collected");
+  });
+
+  await test.step("admin sees the order and the money", async () => {
+    const page = admin.page;
+    await page.goto("/admin/finance");
+    // one order: customer paid 90.40; the shop earns 67.86 and the rider's guaranteed payout is 60.00
+    for (const amount of ["₹90.40", "₹67.86", "₹60.00"]) await expect(page.getByText(amount, { exact: true }).first()).toBeVisible();
+  });
+
 });
 
 export { createHmac, RZP_SECRET, STUDENT };
