@@ -23,6 +23,7 @@ from app.modules.shops.service import assign_shop
 
 log = logging.getLogger(__name__)
 RAZORPAY_ORDERS_URL = "https://api.razorpay.com/v1/orders"
+MIN_AMOUNT_PAISE = 100  # Razorpay rejects orders below ₹1
 
 
 def _require_keys() -> tuple[str, str]:
@@ -40,6 +41,10 @@ def create_gateway_order(amount_paise: int, receipt: str) -> str:
             RAZORPAY_ORDERS_URL, auth=(key_id, secret), timeout=15,
             json={"amount": amount_paise, "currency": "INR", "receipt": receipt, "payment_capture": 1},
         )
+        if res.status_code == 401:
+            # Not passed through as 401: the client would read that as an expired user session.
+            log.error("Razorpay rejected the API keys (401); check RAZORPAY_KEY_ID/RAZORPAY_KEY_SECRET")
+            raise HTTPException(503, "Online payments are misconfigured. Please try again later.")
         res.raise_for_status()
         return res.json()["id"]
     except (httpx.HTTPError, KeyError, ValueError):
@@ -53,8 +58,8 @@ def start_checkout(db: Session, order: Order) -> CheckoutOut:
     key_id, _ = _require_keys()
     quotation = orders.lock_quotation(db, order)  # server-side price; client never supplies an amount
     amount_paise = int(quotation.total * 100)
-    if amount_paise <= 0:
-        raise HTTPException(422, "Order total must be greater than zero")
+    if amount_paise < MIN_AMOUNT_PAISE:
+        raise HTTPException(422, "Order total must be at least ₹1 to pay online")
     gateway_order_id = create_gateway_order(amount_paise, order.code)
 
     db.execute(update(Payment).where(Payment.order_id == order.id).values(is_current=False))

@@ -83,6 +83,14 @@ def seeded(db_session):
     return db_session.query(College).one()
 
 
+@pytest.fixture(autouse=True)
+def no_real_razorpay_keys(monkeypatch):
+    """Ignore any Razorpay keys in the developer's .env so tests never reach the real gateway."""
+    s = get_settings()
+    for name in ("razorpay_key_id", "razorpay_key_secret", "razorpay_webhook_secret"):
+        monkeypatch.setattr(s, name, "")
+
+
 @pytest.fixture
 def razorpay(monkeypatch):
     """Configured Razorpay keys + a fake gateway-order creator (no network)."""

@@ -2,6 +2,7 @@ import hashlib
 import hmac
 import json
 
+import httpx
 import pytest
 
 from app.modules.colleges.models import CollegeSlot
@@ -98,6 +99,46 @@ def test_checkout_unavailable_without_razorpay_keys(client, student, seeded, db_
 def test_checkout_needs_a_slot(client, student, seeded, db_session, razorpay):
     oid, _ = build_order(client, student, seeded, db_session, with_delivery=False)
     assert client.post(f"{API}/orders/{oid}/checkout", headers=student).status_code == 422
+
+
+class _FakeResponse:
+    def __init__(self, status_code, body=None):
+        self.status_code, self._body = status_code, body or {}
+
+    def raise_for_status(self):
+        if self.status_code >= 400:
+            raise httpx.HTTPStatusError("error", request=httpx.Request("POST", "https://x"),
+                                        response=httpx.Response(self.status_code))
+
+    def json(self):
+        return self._body
+
+
+@pytest.mark.parametrize("status, expected", [(401, 503), (500, 502)])
+def test_gateway_order_errors_are_not_leaked_as_auth_failures(monkeypatch, status, expected):
+    from fastapi import HTTPException
+
+    from app.modules.payments import service
+    s = service.get_settings()
+    monkeypatch.setattr(s, "razorpay_key_id", "rzp_test_key")
+    monkeypatch.setattr(s, "razorpay_key_secret", "test_secret")
+    monkeypatch.setattr(service.httpx, "post", lambda *a, **kw: _FakeResponse(status))
+    with pytest.raises(HTTPException) as e:
+        service.create_gateway_order(10000, "R1")
+    assert e.value.status_code == expected  # never 401: the client would treat it as an expired session
+
+
+def test_gateway_order_sends_amount_in_paise(monkeypatch):
+    from app.modules.payments import service
+    s = service.get_settings()
+    monkeypatch.setattr(s, "razorpay_key_id", "rzp_test_key")
+    monkeypatch.setattr(s, "razorpay_key_secret", "test_secret")
+    sent = {}
+    monkeypatch.setattr(service.httpx, "post",
+                        lambda url, **kw: sent.update(kw) or _FakeResponse(200, {"id": "order_X"}))
+    assert service.create_gateway_order(10260, "R1") == "order_X"
+    assert sent["json"]["amount"] == 10260 and sent["json"]["currency"] == "INR"
+    assert sent["auth"] == ("rzp_test_key", "test_secret")
 
 
 def test_full_payment_flow(client, student, seeded, db_session, razorpay):
